@@ -1,0 +1,496 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "XCIDIC Application API",
+      "description": "XCIDIC Application API",
+      "license": {
+        "name": "MIT",
+        "url": "https://opensource.org/licenses/MIT"
+      }
+    },
+    "host": "xcidic-deploys.herokuapp.com",
+    "basePath": "/",
+    "schemes": [
+      "https"
+    ],
+    "consumes": [
+      "application/json"
+    ],
+    "produces": [
+      "application/json"
+    ],
+    "paths": {
+      "/branches": {
+        "post": {
+          "tags": [
+            "branches"
+          ],
+          "description": "create a branch",
+          "parameters": [
+            {
+              "name": "branch",
+              "in": "body",
+              "description": "create a branch",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "latitude": {
+                  "type": "string",
+                  "default": "-76.984722"
+                },
+                "longitude": {
+                  "type": "string",
+                  "default": "39.807255"
+                },
+                "openingHours": {
+                  "type": "string",
+                  "default": "00:00:00"
+                }
+              }
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "summary": "create new branch",
+          "responses": {
+            "201": {
+              "description": "success"
+            }
+          }
+        },
+        "get": {
+          "tags": [
+            "branches"
+          ],
+          "description": "get branches",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "query"
+            },
+            {
+              "name": "name",
+              "in": "query"
+            },
+            {
+              "name": "latitude",
+              "in": "query"
+            },
+            {
+              "name": "longitude",
+              "in": "query"
+            },
+            {
+              "name": "openingHours",
+              "in": "query"
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "summary": "get all branches",
+          "responses": {
+            "200": {
+              "description": "success"
+            }
+          }
+        },
+        "put": {
+          "tags": [
+            "branches"
+          ],
+          "description": "update branches",
+          "parameters": [
+            {
+              "name": "user id",
+              "in": "body",
+              "description": "update branches",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "latitude": {
+                  "type": "string",
+                  "default": "-76.984722"
+                },
+                "longitude": {
+                  "type": "string",
+                  "default": "39.807255"
+                },
+                "openingHours": {
+                  "type": "string",
+                  "default": "00:00:00"
+                }
+              }
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "summary": "update branch",
+          "responses": {
+            "200": {
+              "description": "success"
+            }
+          }
+        },
+        "delete": {
+          "tags": [
+            "branches"
+          ],
+          "description": "delete branch",
+          "parameters": [
+            {
+              "name": "branchid",
+              "in": "body",
+              "description": "delete branch",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "isSafeDelete": {
+                  "type": "boolean",
+                  "default": true
+                }
+              }
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "summary": "delete branch",
+          "responses": {
+            "200": {
+              "description": "success"
+            }
+          }
+        }
+      },
+      "/timeslots": {
+        "post": {
+          "tags": [
+            "timeslots"
+          ],
+          "description": "create a timeslots",
+          "parameters": [
+            {
+              "name": "timeslots",
+              "in": "body",
+              "description": "create a timeslots",
+              "properties": {
+                "branchID": {
+                  "type": "integer"
+                },
+                "mealPlanName": {
+                  "type": "string"
+                },
+                "capacity": {
+                  "type": "integer",
+                  "default": 15
+                },
+                "day": {
+                  "type": "string",
+                  "default": "Monday",
+                  "description": "create a timeslots"
+                },
+                "price": {
+                  "type": "integer"
+                },
+                "startTime": {
+                  "type": "string",
+                  "default": "00:00:00"
+                },
+                "endTime": {
+                  "type": "string",
+                  "default": "00:00:00"
+                }
+              }
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "summary": "create new timeslots",
+          "responses": {
+            "201": {
+              "description": "success"
+            }
+          }
+        },
+        "get": {
+          "tags": [
+            "timeslots"
+          ],
+          "description": "get timeslots",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "query"
+            },
+            {
+              "name": "branchID",
+              "in": "query"
+            },
+            {
+              "name": "mealPlanName",
+              "in": "query"
+            },
+            {
+              "name": "capacity",
+              "in": "query"
+            }
+            ,
+            {
+              "name": "price",
+              "in": "query"
+            },
+            {
+              "name": "startTime",
+              "in": "query"
+            },
+            {
+              "name": "endTime",
+              "in": "query"
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "summary": "get all timeslots",
+          "responses": {
+            "200": {
+              "description": "success"
+            }
+          }
+        },
+        "put": {
+          "tags": [
+            "timeslots"
+          ],
+          "description": "update timeslots",
+          "parameters": [
+            {
+              "name": "user id",
+              "in": "body",
+              "description": "update timeslots",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "branchID": {
+                  "type": "integer"
+                },
+                "mealPlanName": {
+                  "type": "string"
+                },
+                "capacity": {
+                  "type": "integer",
+                  "default": 15
+                },
+                "day": {
+                  "type": "string",
+                  "default": "Monday",
+                  "description": "update"
+                },
+                "price": {
+                  "type": "integer"
+                },
+                "startTime": {
+                  "type": "string",
+                  "default": "00:00:00"
+                },
+                "endTime": {
+                  "type": "string",
+                  "default": "00:00:00"
+                }
+              }
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "summary": "update timeslots",
+          "responses": {
+            "200": {
+              "description": "success"
+            }
+          }
+        },
+        "delete": {
+          "tags": [
+            "timeslots"
+          ],
+          "description": "delete timeslots",
+          "parameters": [
+            {
+              "name": "timeslotID",
+              "in": "body",
+              "description": "delete timeslots",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "isSafeDelete": {
+                  "type": "boolean",
+                  "default": true
+                }
+              }
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "summary": "delete timeslots",
+          "responses": {
+            "200": {
+              "description": "success"
+            }
+          }
+        }
+      },
+      "/demands": {
+        "post": {
+          "tags": [
+            "demands"
+          ],
+          "description": "set on-demand",
+          "parameters": [
+            {
+              "name": "demands",
+              "in": "body",
+              "description": "set on-demand",
+              "properties": {
+                "timeslotID": {
+                  "type": "integer"
+                },
+                "price": {
+                  "type": "integer"
+                },
+                "alias": {
+                  "type": "string"
+                }
+              }
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "summary": "set on-demand",
+          "responses": {
+            "200": {
+              "description": "success"
+            }
+          }
+        },
+        "delete": {
+          "tags": [
+            "demands"
+          ],
+          "description": "set on-demand",
+          "parameters": [
+            {
+              "name": "set on-demand",
+              "in": "body",
+              "description": "deactive ondemands",
+              "properties": {
+                "timeslotID": {
+                  "type": "integer"
+                }
+              }
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "summary": "deactive ondemands",
+          "responses": {
+            "200": {
+              "description": "success"
+            }
+          }
+        }
+      },
+      "/reservations": {
+        "post": {
+          "tags": [
+            "reservations"
+          ],
+          "description": "add reservations",
+          "parameters": [
+            {
+              "name": "demands",
+              "in": "body",
+              "description": "set on-demand",
+              "properties": {
+                "timeslotID": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                }
+              }
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "summary": "reservations",
+          "responses": {
+            "200": {
+              "description": "success"
+            }
+          }
+        }
+      },
+      "/timeslots/search": {
+        "get": {
+          "tags": [
+            "search"
+          ],
+          "description": "search",
+          "parameters": [
+            {
+              "name": "name",
+              "in": "query"
+            },
+            {
+              "name": "price",
+              "in": "query"
+            },
+            {
+              "name": "createdAt",
+              "in": "query"
+            },
+            {
+              "name": "longitude",
+              "in": "query"
+            }
+            ,
+            {
+              "name": "latitude",
+              "in": "query"
+            },
+            {
+              "name": "km",
+              "in": "query"
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "summary": "search",
+          "responses": {
+            "200": {
+              "description": "success"
+            }
+          }
+        }
+      }
+    }
+}
