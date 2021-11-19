@@ -2,14 +2,14 @@
     "swagger": "2.0",
     "info": {
       "version": "1.0.0",
-      "title": "XCIDIC Application API",
-      "description": "XCIDIC Application API",
+      "title": "Vouch Application API",
+      "description": "Vouch Application API",
       "license": {
         "name": "MIT",
         "url": "https://opensource.org/licenses/MIT"
       }
     },
-    "host": "xcidic-deploys.herokuapp.com",
+    "host": "vch.herokuapp.com",
     "basePath": "/",
     "schemes": [
       "https"
