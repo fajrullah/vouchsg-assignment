@@ -4,57 +4,51 @@
 module.exports = (server) => {
   const socket = require('socket.io')
 
-  const { get_Current_User, user_Disconnect, join_User } = require('../dummyuser')
+  const Chats = require('./models')
 
-  const io = socket(server)
+  const io = socket(server, {
+    cors: {
+      origin: 'http://localhost:3000',
+      methods: ['GET', 'POST']
+    }
+  })
 
   // initializing the socket io connection
   io.on('connection', (socket) => {
     // for a new user joining the room
-    socket.on('joinRoom', ({ username, roomname }) => {
+    socket.on('joinRoom', async ({ userName, roomName }) => {
       //* create user
-      const p_user = join_User(socket.id, username, roomname)
-      socket.join(p_user.room)
+      // const p_user = await join_User(socket.id, username, roomname)
 
-      // display a welcome message to the user who have joined a room
-      socket.emit('message', {
-        userId: p_user.id,
-        username: p_user.username,
-        text: `Welcome ${p_user.username}`
-      })
+      const show = await Chats.joinUser({ userId: socket.id, userName, roomName, text: `Welcome ${userName}` })
 
-      // displays a joined room message to all other room users except that particular user
-      socket.broadcast.to(p_user.room).emit('message', {
-        userId: p_user.id,
-        username: p_user.username,
-        text: `${p_user.username} has joined the chat`
-      })
+      socket.join(roomName)
+
+      // // display a welcome message to the user who have joined a room
+      // socket.emit('message', {
+      //   userId,
+      //   userName: user,
+      //   text: `Welcome ${user}`
+      // })
+
+      // // displays a joined room message to all other room users except that particular user
+      // socket.broadcast.to(room).emit('message', {
+      //   userId,
+      //   userName: user,
+      //   text: `${user} has joined the chat`
+      // })
+      io.to(roomName).emit('message', show)
     })
 
     // user sending message
-    socket.on('chat', (text) => {
-      // gets the room user and the message sent
-      const p_user = get_Current_User(socket.id)
-      console.log('HERE', text)
-      io.to(p_user.room).emit('message', {
-        userId: p_user.id,
-        username: p_user.username,
-        text: text
+    socket.on('chat', async (data) => {
+      const { roomName } = data
+      data.userId = socket.id
+      await Chats.sendMessages(data)
+      const messages = await Chats.getMessages({
+        roomName
       })
-    })
-
-    // when the user exits the room
-    socket.on('disconnect', () => {
-      // the user is deleted from array of users and a left room message displayed
-      const p_user = user_Disconnect(socket.id)
-
-      if (p_user) {
-        io.to(p_user.room).emit('message', {
-          userId: p_user.id,
-          username: p_user.username,
-          text: `${p_user.username} has left the chat`
-        })
-      }
+      io.to(roomName).emit('message', messages)
     })
   })
 }

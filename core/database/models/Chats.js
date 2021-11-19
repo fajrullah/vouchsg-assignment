@@ -9,12 +9,15 @@ const ModelSchema = new Mongoose.Schema({
     type: String,
     required: false
   },
-  room: {
+  roomName: {
     type: String,
     required: false
+  },
+  text: {
+    type: String
   }
 }, {
   timestamps: true
 })
 
-module.exports = Mongoose.model('Forms', ModelSchema)
+module.exports = Mongoose.model('Chats', ModelSchema)

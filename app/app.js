@@ -5,7 +5,7 @@ const cors = require('cors')
 const helmet = require('helmet')
 const swaggerUi = require('swagger-ui-express')
 const swaggerDocument = require('../swagger.json')
-const { publicRoute, isEntityFalse, clientErrorHandler } = require('../core')
+const { clientErrorHandler } = require('../core')
 
 const app = express()
 
@@ -31,17 +31,13 @@ app.use(bodyParser.urlencoded({
   extended: true
 }))
 app.use(bodyParser.json())
-/**
- * If validator fail, Send ERROR to client
- */
-app.use(isEntityFalse)
 
 /**
  * Using swagger for documentation API
  */
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
-publicRoute(app)
+require('./routes')(app)
 
 app.use(clientErrorHandler)
 

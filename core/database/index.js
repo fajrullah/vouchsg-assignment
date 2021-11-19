@@ -1,4 +1,6 @@
 const Mongoose = require('mongoose')
+Mongoose.set('debug', { shell: true, color: true })
+
 const { URI } = require('../config')
 /**
  * Class DB
